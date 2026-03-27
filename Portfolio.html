@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mohamed Nabil — AI Automation Engineer</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --surface: #111118;
+    --card: #16161f;
+    --border: rgba(255,255,255,0.07);
+    --border-h: rgba(255,255,255,0.14);
+    --text: #e8e6e0;
+    --muted: #7a7870;
+    --accent: #4af0a4;
+    --accent2: #7c6df5;
+    --accent3: #f0a44a;
+    --tag-bg: rgba(74,240,164,0.08);
+    --tag-border: rgba(74,240,164,0.2);
+    --tag-text: #3dd48e;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* GRID NOISE */
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none; z-index: 0;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    background: rgba(10,10,15,0.85);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+    z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 40px; height: 60px;
+  }
+  .nav-logo {
+    font-family: 'DM Mono', monospace;
+    font-size: 13px; color: var(--accent);
+    letter-spacing: 0.05em;
+  }
+  nav a {
+    color: var(--muted); text-decoration: none;
+    font-size: 13px; letter-spacing: 0.03em;
+    transition: color 0.2s;
+  }
+  nav a:hover { color: var(--text); }
+  .nav-links { display: flex; gap: 32px; }
+
+  /* HERO */
+  .hero {
+    position: relative; z-index: 1;
+    padding: 140px 40px 80px;
+    max-width: 1100px; margin: 0 auto;
+  }
+  .hero-tag {
+    display: inline-block;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--accent);
+    border: 1px solid var(--tag-border);
+    background: var(--tag-bg);
+    padding: 4px 12px;
+    border-radius: 20px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 28px;
+  }
+  h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(44px, 6vw, 76px);
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin-bottom: 28px;
+  }
+  h1 span { color: var(--accent); }
+  .hero-sub {
+    font-size: 17px;
+    color: var(--muted);
+    max-width: 560px;
+    line-height: 1.7;
+    margin-bottom: 48px;
+  }
+  .hero-stats {
+    display: flex; gap: 40px; flex-wrap: wrap;
+    padding: 28px 32px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    max-width: 680px;
+  }
+  .stat-item { }
+  .stat-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 32px; font-weight: 800;
+    color: var(--accent); line-height: 1;
+  }
+  .stat-label {
+    font-size: 12px; color: var(--muted);
+    margin-top: 4px; letter-spacing: 0.03em;
+  }
+
+  /* SECTION */
+  section {
+    position: relative; z-index: 1;
+    max-width: 1100px; margin: 0 auto;
+    padding: 80px 40px;
+  }
+  .section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--accent2);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(28px, 4vw, 42px);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 48px;
+    line-height: 1.1;
+  }
+
+  /* PROOF CARDS */
+  .proof-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    margin-bottom: 64px;
+  }
+  .proof-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 24px;
+    transition: border-color 0.2s;
+  }
+  .proof-card:hover { border-color: var(--border-h); }
+  .proof-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 36px; font-weight: 800;
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+  .proof-card:nth-child(1) .proof-num { color: var(--accent); }
+  .proof-card:nth-child(2) .proof-num { color: var(--accent2); }
+  .proof-card:nth-child(3) .proof-num { color: var(--accent3); }
+  .proof-card:nth-child(4) .proof-num { color: #f06292; }
+  .proof-card:nth-child(5) .proof-num { color: #4fc3f7; }
+  .proof-desc { font-size: 13px; color: var(--muted); line-height: 1.5; }
+
+  /* DIVIDER */
+  .divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 0;
+  }
+
+  /* PROJECT CARDS */
+  .projects { display: flex; flex-direction: column; gap: 2px; }
+  .project-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    overflow: hidden;
+    transition: border-color 0.2s;
+    cursor: pointer;
+    margin-bottom: 16px;
+  }
+  .project-card:hover { border-color: var(--border-h); }
+  .project-header {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: start;
+    gap: 16px;
+    padding: 32px 36px;
+  }
+  .project-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    margin-bottom: 10px;
+    letter-spacing: 0.08em;
+  }
+  h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 22px; font-weight: 700;
+    letter-spacing: -0.01em;
+    margin-bottom: 10px;
+  }
+  .project-tagline { color: var(--muted); font-size: 14px; max-width: 500px; }
+  .tag-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+  .tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    padding: 3px 10px;
+    border-radius: 20px;
+    border: 1px solid;
+    letter-spacing: 0.04em;
+  }
+  .tag-green { background: var(--tag-bg); border-color: var(--tag-border); color: var(--tag-text); }
+  .tag-purple { background: rgba(124,109,245,0.08); border-color: rgba(124,109,245,0.25); color: #9d8ff8; }
+  .tag-amber { background: rgba(240,164,74,0.08); border-color: rgba(240,164,74,0.25); color: #e8a040; }
+  .tag-pink { background: rgba(240,98,146,0.08); border-color: rgba(240,98,146,0.25); color: #ef80a8; }
+  .tag-blue { background: rgba(79,195,247,0.08); border-color: rgba(79,195,247,0.25); color: #4ab8e8; }
+
+  .project-metrics {
+    display: flex; flex-direction: column; gap: 6px;
+    text-align: right;
+  }
+  .metric-pill {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    padding: 5px 12px;
+    border-radius: 20px;
+    background: rgba(74,240,164,0.07);
+    border: 1px solid rgba(74,240,164,0.15);
+    color: var(--accent);
+    white-space: nowrap;
+  }
+
+  /* EXPAND PANEL */
+  .project-body {
+    display: none;
+    padding: 0 36px 32px;
+    border-top: 1px solid var(--border);
+  }
+  .project-body.open { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; padding-top: 32px; }
+  .body-col h4 {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .body-col p { font-size: 14px; color: var(--muted); line-height: 1.7; margin-bottom: 12px; }
+  .body-col p strong { color: var(--text); font-weight: 500; }
+
+  /* FLOW VIZ */
+  .flow-nodes {
+    display: flex; flex-wrap: wrap; gap: 6px;
+    align-items: center;
+  }
+  .flow-node {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    padding: 4px 10px;
+    border-radius: 6px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid var(--border);
+    color: var(--text);
+    white-space: nowrap;
+  }
+  .flow-arrow { color: var(--muted); font-size: 12px; }
+
+  /* STACK SECTION */
+  .stack-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 12px;
+    margin-top: 0;
+  }
+  .stack-item {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px;
+    text-align: center;
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    color: var(--muted);
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .stack-item:hover { border-color: var(--border-h); color: var(--text); }
+  .stack-icon { font-size: 20px; margin-bottom: 8px; display: block; }
+
+  /* CTA */
+  .cta-section {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    padding: 60px;
+    text-align: center;
+    margin-bottom: 80px;
+  }
+  .cta-section h2 { margin-bottom: 16px; }
+  .cta-sub { color: var(--muted); font-size: 16px; margin-bottom: 36px; max-width: 480px; margin-left: auto; margin-right: auto; }
+  .btn-primary {
+    display: inline-block;
+    background: var(--accent);
+    color: #0a0a0f;
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 14px 32px;
+    border-radius: 10px;
+    text-decoration: none;
+    letter-spacing: 0.04em;
+    transition: opacity 0.2s;
+  }
+  .btn-primary:hover { opacity: 0.88; }
+  .btn-secondary {
+    display: inline-block;
+    background: transparent;
+    color: var(--text);
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    padding: 14px 32px;
+    border-radius: 10px;
+    text-decoration: none;
+    border: 1px solid var(--border);
+    letter-spacing: 0.04em;
+    margin-left: 12px;
+    transition: border-color 0.2s;
+  }
+  .btn-secondary:hover { border-color: var(--border-h); }
+
+  /* FOOTER */
+  footer {
+    position: relative; z-index: 1;
+    border-top: 1px solid var(--border);
+    padding: 28px 40px;
+    display: flex; justify-content: space-between; align-items: center;
+    max-width: 1100px; margin: 0 auto;
+  }
+  footer span { font-family: 'DM Mono', monospace; font-size: 12px; color: var(--muted); }
+
+  /* TOGGLE ICON */
+  .toggle-icon {
+    width: 32px; height: 32px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--muted);
+    font-size: 16px;
+    flex-shrink: 0;
+    transition: border-color 0.2s, color 0.2s;
+    margin-top: 4px;
+  }
+  .project-card:hover .toggle-icon { border-color: var(--border-h); color: var(--text); }
+
+  @media (max-width: 700px) {
+    nav { padding: 0 20px; }
+    .hero, section { padding-left: 20px; padding-right: 20px; }
+    .project-body.open { grid-template-columns: 1fr; }
+    .cta-section { padding: 40px 24px; }
+    .hero-stats { gap: 24px; }
+    footer { flex-direction: column; gap: 12px; text-align: center; }
+    .nav-links { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <span class="nav-logo">mn.automation</span>
+  <div class="nav-links">
+    <a href="#work">Work</a>
+    <a href="#stack">Stack</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-tag">Available for projects</div>
+  <h1>AI Automation<br>Engineer<span>.</span></h1>
+  <p class="hero-sub">
+    I build workflows that replace manual work permanently — lead gen pipelines, CRM automation, AI agents, and data systems that run 24/7 without babysitting.
+  </p>
+  <div class="hero-stats">
+    <div class="stat-item">
+      <div class="stat-num">20-30</div>
+      <div class="stat-label">qualified leads/day, automated</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">5K+</div>
+      <div class="stat-label">records/day, scrapers running</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">100%</div>
+      <div class="stat-label">inbox rate, cold email system</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">5.0★</div>
+      <div class="stat-label">Upwork rating, 21 jobs</div>
+    </div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- WORK -->
+<section id="work">
+  <div class="section-label">Selected work</div>
+  <h2>Five workflows.<br>Zero manual steps.</h2>
+
+  <div class="projects">
+
+    <!-- PROJECT 1: Innovapack Lead Gen -->
+    <div class="project-card" onclick="toggle(this)">
+      <div class="project-header">
+        <div>
+          <div class="project-num">01 / AI Lead Generation Pipeline</div>
+          <h3>Innovapack — Autonomous Lead Engine</h3>
+          <p class="project-tagline">Daily-scheduled AI pipeline that discovers packaging companies, finds decision-makers, verifies emails, and pushes qualified leads to Pipedrive — fully hands-off.</p>
+          <div class="tag-row">
+            <span class="tag tag-green">n8n</span>
+            <span class="tag tag-purple">OpenRouter AI</span>
+            <span class="tag tag-amber">SerpAPI</span>
+            <span class="tag tag-green">Hunter.io</span>
+            <span class="tag tag-blue">Pipedrive</span>
+            <span class="tag tag-amber">Google Sheets</span>
+          </div>
+        </div>
+        <div class="project-metrics">
+          <span class="metric-pill">20-30 leads/day</span>
+          <span class="metric-pill">0 manual steps</span>
+          <span class="metric-pill">35 nodes</span>
+          <div class="toggle-icon">+</div>
+        </div>
+      </div>
+      <div class="project-body">
+        <div class="body-col">
+          <h4>The problem</h4>
+          <p>Innovapack's sales team was manually Googling packaging companies, copy-pasting names into LinkedIn, guessing email formats, and dropping qualified leads into a spreadsheet by hand. It was eating 4-5 hours a day and still missing hundreds of prospects.</p>
+          <h4>What I built</h4>
+          <p><strong>Schedule Trigger</strong> fires daily. AI extracts company names from SerpAPI search results. A deduplication layer checks Google Sheets to skip already-processed domains. For each new company, a second AI call finds the decision-maker's name and title. Hunter.io verifies the email. A qualification AI scores the lead against Innovapack's ICP. Qualified leads are pushed to Pipedrive with full context.</p>
+          <h4>The outcome</h4>
+          <p><strong>20-30 new qualified leads per day</strong> with zero manual input. The team wakes up to a full pipeline instead of an empty spreadsheet.</p>
+        </div>
+        <div class="body-col">
+          <h4>Node chain</h4>
+          <div class="flow-nodes">
+            <span class="flow-node">Schedule Trigger</span>
+            <span class="flow-arrow">→</span>
+            <span class="flow-node">Build Search Queries</span>
+            <span class="flow-arrow">→</span>
+            <span class="flow-node">SerpAPI Discovery</span>
+            <span class="flow-arrow">→</span>
+            <span class="flow-node">AI: Extract Companies</span>
+            <span class="flow-arrow">→</span>
+            <span class="flow-node">Deduplicate (Sheets)</span>
+            <span class="flow-arrow">→</span>
+            <span class="flow-node">SerpAPI Founder Search</span>
+            <span class="flow-arrow">→</span>
+            <span class="flow-node">AI: Decision Maker</span>
+            <span class="flow-arrow">→</span>
+            <span class="flow-node">Hunter Email Finder</span>
+            <span class="flow-arrow">→</span>
+            <span class="flow-node">AI Qualification</span>
+            <span class="flow-arrow">→</span>
+            <span class="flow-node">Push to Pipedrive</span>
+          </div>
+          <br>
+          <h4>Key technical details</h4>
+          <p><strong>Multi-search fallback:</strong> if a single SERP result is insufficient, the workflow aggregates from multiple search queries before qualifying.</p>
+          <p><strong>Lock mechanism:</strong> Google Sheets append-with-dedup prevents the same company being processed twice across runs.</p>
+          <p><strong>AI models:</strong> OpenRouter with two separate models — fast model for extraction, reasoning model for qualification scoring.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROJECT 2: HubSpot Prospect Generator -->
+    <div class="project-card" onclick="toggle(this)">
+      <div class="project-header">
+        <div>
+          <div class="project-num">02 / AI Data Enrichment & CRM</div>
+          <h3>HubSpot Prospect List Generator</h3>
+          <p class="project-tagline">Intake form accepts a name, CSV, Excel, or image — AI extracts and enriches contact data, finds emails via two providers with fallback, and writes clean records to Google Sheets.</p>
+          <div class="tag-row">
+            <span class="tag tag-green">n8n</span>
+            <span class="tag tag-purple">Mistral OCR</span>
+            <span class="tag tag-purple">OpenRouter AI</span>
+            <span class="tag tag-amber">Snov.io</span>
+            <span class="tag tag-green">Hunter.io</span>
+            <span class="tag tag-blue">HubSpot</span>
+            <span class="tag tag-amber">Serper</span>
+          </div>
+        </div>
+        <div class="project-metrics">
+          <span class="metric-pill">5+ input formats</span>
+          <span class="metric-pill">dual email fallback</span>
+          <span class="metric-pill">58 nodes</span>
+          <div class="toggle-icon">+</div>
+        </div>
+      </div>
+      <div class="project-body">
+        <div class="body-col">
+          <h4>The problem</h4>
+          <p>Sales reps were manually converting prospect lists from business card photos, PDFs, and spreadsheets into usable CRM records — hunting for emails one by one, copy-pasting into HubSpot by hand. The process was inconsistent and slow.</p>
+          <h4>What I built</h4>
+          <p>A <strong>Form Trigger</strong> accepts text, CSV, Excel, or an image. A router detects the input type. Mistral OCR handles images. AI normalizes all formats into a unified contact schema. A dual email-finder runs Snov.io first, falls back to Hunter.io. If email is still missing, SERP enrichment digs up context. Verified contacts are written to Google Sheets in a HubSpot-ready format.</p>
+          <h4>The outcome</h4>
+          <p>Any team member can drop in a business card photo or messy spreadsheet and get a clean, enriched, deduped list ready for HubSpot import — in seconds.</p>
+        </div>
+        <div class="body-col">
+          <h4>Node chain</h4>
+          <div class="flow-nodes">
+            <span class="flow-node">Form Trigger</span>
+            <span class="flow-arrow">→</span>
+            <span class="flow-node">Route by Input Type</span>
+            <span class="flow-arrow">→</span>
+            <span class="flow-node">Mistral OCR (images)</span>
+            <span class="flow-arrow">→</span>
+            <span class="flow-node">AI: Extract & Structure</span>
+            <span class="flow-arrow">→</span>
+            <span class="flow-node">Snov Email Search</span>
+            <span class="flow-arrow">→</span>
+            <span class="flow-node">Hunter Fallback</span>
+            <span class="flow-arrow">→</span>
+            <span class="flow-node">SERP Enrichment</span>
+            <span class="flow-arrow">→</span>
+            <span class="flow-node">AI: Enrich from SERP</span>
+            <span class="flow-arrow">→</span>
+            <span class="flow-node">Google Sheets Append</span>
+          </div>
+          <br>
+          <h4>Key technical details</h4>
+          <p><strong>58-node workflow</strong> with 4 parallel enrichment paths that converge via Merge nodes before final output.</p>
+          <p><strong>Name-based email finding:</strong> separate sub-flow handles cases where only a name and company domain are known.</p>
+          <p><strong>Multi-format extraction:</strong> XLSX, CSV, image, and raw text all normalize into the same schema before any enrichment runs.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROJECT 3: HubSpot Task Automation -->
+    <div class="project-card" onclick="toggle(this)">
+      <div class="project-header">
+        <div>
+          <div class="project-num">03 / CRM + Slack + AI Sales Agent</div>
+          <h3>HubSpot Task Automation — AI Sales Rep</h3>
+          <p class="project-tagline">AI reads email history for each contact, drafts the next outreach email, routes it to Slack for one-click approval, sends it via Brevo, logs it back to HubSpot, and schedules the next follow-up task automatically.</p>
+          <div class="tag-row">
+            <span class="tag tag-green">n8n</span>
+            <span class="tag tag-blue">HubSpot API</span>
+            <span class="tag tag-purple">OpenRouter AI</span>
+            <span class="tag tag-amber">Slack</span>
+            <span class="tag tag-pink">Brevo</span>
+            <span class="tag tag-amber">Google Sheets</span>
+          </div>
+        </div>
+        <div class="project-metrics">
+          <span class="metric-pill">30-50 hrs/week saved</span>
+          <span class="metric-pill">human-in-loop</span>
+          <span class="metric-pill">114 nodes</span>
+          <div class="toggle-icon">+</div>
+        </div>
+      </div>
+      <div class="project-body">
+        <div class="body-col">
+          <h4>The problem</h4>
+          <p>A sales team was manually reading through HubSpot contact histories, writing individual follow-up emails, and manually scheduling the next task after each send. Every rep was spending 30-50 hours a week on work that required no real judgment.</p>
+          <h4>What I built</h4>
+          <p>A <strong>Webhook</strong> fires when a HubSpot task comes due. The workflow pulls the contact's full email history, strips HTML, and builds AI context. An AI agent drafts the next outreach email. A Slack message with Approve / Reject / Revise buttons is sent to the rep. On approval, Brevo sends the email, HubSpot logs it, the task is marked complete, and a new follow-up task is scheduled automatically.</p>
+          <h4>The outcome</h4>
+          <p>Reps review and approve emails — they don't write them. The full cycle from task due to next task scheduled runs in under 60 seconds.</p>
+        </div>
+        <div class="body-col">
+          <h4>Node chain</h4>
+          <div class="flow-nodes">
+            <span class="flow-node">Webhook (Slack)</span>
+            <span class="flow-arrow">→</span>
+            <span class="flow-node">Fetch Contact Tasks</span>
+            <span class="flow-arrow">→</span>
+            <span class="flow-node">Get Email History</span>
+            <span class="flow-arrow">→</span>
+            <span class="flow-node">AI: Draft Email</span>
+            <span class="flow-arrow">→</span>
+            <span class="flow-node">Slack Approval</span>
+            <span class="flow-arrow">→</span>
+            <span class="flow-node">Route: Approve / Revise</span>
+            <span class="flow-arrow">→</span>
+            <span class="flow-node">Brevo: Send Email</span>
+            <span class="flow-arrow">→</span>
+            <span class="flow-node">HubSpot: Log Email</span>
+            <span class="flow-arrow">→</span>
+            <span class="flow-node">Mark Task Complete</span>
+            <span class="flow-arrow">→</span>
+            <span class="flow-node">Create Next Task</span>
+          </div>
+          <br>
+          <h4>Key technical details</h4>
+          <p><strong>114-node workflow</strong> with full human-in-the-loop: approval, rejection, revision request, and re-generation paths all handled.</p>
+          <p><strong>Context building:</strong> email history sorted by date, HTML stripped, truncated to fit AI context window with relevance preserved.</p>
+          <p><strong>Timeout guard:</strong> if no Slack response within window, a timeout notification fires and the task stays open for manual handling.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROJECT 4: Notion to Pipedrive -->
+    <div class="project-card" onclick="toggle(this)">
+      <div class="project-header">
+        <div>
+          <div class="project-num">04 / CRM Migration & Data Pipeline</div>
+          <h3>Notion → Pipedrive Migration</h3>
+          <p class="project-tagline">One-shot migration for Benjamin: pulled funds, professional contacts, and personal contacts from three Notion databases, transformed and deduplicated records, and pushed clean organizations and people to Pipedrive.</p>
+          <div class="tag-row">
+            <span class="tag tag-green">n8n</span>
+            <span class="tag tag-purple">Notion API</span>
+            <span class="tag tag-blue">Pipedrive API</span>
+            <span class="tag tag-amber">Google Drive</span>
+          </div>
+        </div>
+        <div class="project-metrics">
+          <span class="metric-pill">3 databases migrated</span>
+          <span class="metric-pill">zero duplicates</span>
+          <span class="metric-pill">17 nodes</span>
+          <div class="toggle-icon">+</div>
+        </div>
+      </div>
+      <div class="project-body">
+        <div class="body-col">
+          <h4>The problem</h4>
+          <p>Benjamin had years of contacts and fund data spread across three separate Notion databases with inconsistent field names, duplicate entries, and mixed relationship types. Moving to Pipedrive manually would have taken days and introduced errors.</p>
+          <h4>What I built</h4>
+          <p>The workflow reads all three Notion databases in parallel — Funds, Professional Contacts, Personal Contacts. Custom Code nodes transform each schema to Pipedrive's data model. A Merge node consolidates all people records. Deduplication runs before any Pipedrive writes. Organizations are created first, then people are associated to the correct org. A Google Drive attachment handler migrates linked files.</p>
+          <h4>The outcome</h4>
+          <p>Clean, deduped migration completed in one execution. All relationships preserved. No manual cleanup needed on the Pipedrive side.</p>
+        </div>
+        <div class="body-col">
+          <h4>Node chain</h4>
+          <div class="flow-nodes">
+            <span class="flow-node">Manual Trigger</span>
+            <span class="flow-arrow">→</span>
+            <span class="flow-node">Notion: Get Funds DB</span>
+            <span class="flow-arrow">→</span>
+            <span class="flow-node">Notion: Pro Contacts</span>
+            <span class="flow-arrow">→</span>
+            <span class="flow-node">Notion: Personal Contacts</span>
+            <span class="flow-arrow">→</span>
+            <span class="flow-node">Transform Schemas</span>
+            <span class="flow-arrow">→</span>
+            <span class="flow-node">Merge All People</span>
+            <span class="flow-arrow">→</span>
+            <span class="flow-node">Remove Duplicates</span>
+            <span class="flow-arrow">→</span>
+            <span class="flow-node">Push Orgs to Pipedrive</span>
+            <span class="flow-arrow">→</span>
+            <span class="flow-node">Push People to Pipedrive</span>
+          </div>
+          <br>
+          <h4>Key technical details</h4>
+          <p><strong>Schema transformation:</strong> Notion's property format (nested objects with type keys) requires substantial flattening before Pipedrive's flat API can accept it.</p>
+          <p><strong>Relationship preservation:</strong> Fund → Organization mapping maintained so contacts land in the correct Pipedrive org on creation.</p>
+          <p><strong>File migration:</strong> Google Drive export links processed and attached to records.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROJECT 5: Upwork Scraper Control -->
+    <div class="project-card" onclick="toggle(this)">
+      <div class="project-header">
+        <div>
+          <div class="project-num">05 / AI Job Matching & Apply System</div>
+          <h3>Upwork AI Scraper Control Panel</h3>
+          <p class="project-tagline">n8n control layer for an autonomous Upwork scraper: AI ranks scraped jobs by score, approved jobs are queued for automated application, and Telegram handles real-time approval and confirmation.</p>
+          <div class="tag-row">
+            <span class="tag tag-green">n8n</span>
+            <span class="tag tag-purple">OpenRouter AI</span>
+            <span class="tag tag-amber">Telegram Bot</span>
+            <span class="tag tag-blue">Google Sheets</span>
+            <span class="tag tag-pink">Playwright</span>
+            <span class="tag tag-green">Webhooks</span>
+          </div>
+        </div>
+        <div class="project-metrics">
+          <span class="metric-pill">AI job scoring</span>
+          <span class="metric-pill">auto-apply pipeline</span>
+          <span class="metric-pill">35 nodes</span>
+          <div class="toggle-icon">+</div>
+        </div>
+      </div>
+      <div class="project-body">
+        <div class="body-col">
+          <h4>The problem</h4>
+          <p>Manually reviewing Upwork job feeds, evaluating fit, writing proposals, and submitting applications across dozens of jobs per day is a full-time job in itself. The goal was to automate the entire pipeline while keeping human judgment in the loop for final approval.</p>
+          <h4>What I built</h4>
+          <p>A <strong>Form Trigger</strong> gives control (Run, Pause, Status) via a web UI. Scraped jobs are passed to an AI ranking node that scores each job 0-10 for automation relevance, client quality, and opportunity. Jobs scoring ≥5 are written to Google Sheets. Approved jobs trigger HTTP calls to the Playwright-based scraper which handles the actual application. Webhooks return confirmation results from the scraper back to n8n, which logs outcomes and sends a Telegram notification.</p>
+          <h4>The outcome</h4>
+          <p>The full loop — scrape → rank → approve → apply → confirm — runs with one click. Human time is spent only on reviewing AI-ranked candidates, not on finding or applying to them.</p>
+        </div>
+        <div class="body-col">
+          <h4>Node chain</h4>
+          <div class="flow-nodes">
+            <span class="flow-node">Form: Control UI</span>
+            <span class="flow-arrow">→</span>
+            <span class="flow-node">HTTP: Run/Pause/Status</span>
+            <span class="flow-arrow">→</span>
+            <span class="flow-node">Receive Scraped Jobs</span>
+            <span class="flow-arrow">→</span>
+            <span class="flow-node">AI: Rank All Jobs</span>
+            <span class="flow-arrow">→</span>
+            <span class="flow-node">Filter Score ≥ 5</span>
+            <span class="flow-arrow">→</span>
+            <span class="flow-node">Write to Sheets</span>
+            <span class="flow-arrow">→</span>
+            <span class="flow-node">Read Approved Jobs</span>
+            <span class="flow-arrow">→</span>
+            <span class="flow-node">HTTP: Send to Scraper</span>
+            <span class="flow-arrow">→</span>
+            <span class="flow-node">Webhook: Confirm</span>
+            <span class="flow-arrow">→</span>
+            <span class="flow-node">Telegram Notify</span>
+          </div>
+          <br>
+          <h4>Key technical details</h4>
+          <p><strong>Bidirectional control:</strong> n8n both controls the external Playwright process via HTTP and receives webhook callbacks from it — acting as the orchestration layer.</p>
+          <p><strong>AI ranking prompt:</strong> structured scoring across three dimensions (automation fit, client quality, opportunity) with specific penalties for low budgets, unverified clients, and disqualifying criteria.</p>
+          <p><strong>Approval gate:</strong> Google Sheets acts as the human-review queue — jobs sit there until manually approved before the apply pipeline fires.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- STACK -->
+<section id="stack">
+  <div class="section-label">Technical stack</div>
+  <h2>Tools I ship with.</h2>
+  <div class="stack-grid">
+    <div class="stack-item"><span class="stack-icon">⚙️</span>n8n</div>
+    <div class="stack-item"><span class="stack-icon">🔄</span>Make.com</div>
+    <div class="stack-item"><span class="stack-icon">⚡</span>Zapier</div>
+    <div class="stack-item"><span class="stack-icon">🐍</span>Python</div>
+    <div class="stack-item"><span class="stack-icon">🤖</span>OpenAI API</div>
+    <div class="stack-item"><span class="stack-icon">🧠</span>Claude API</div>
+    <div class="stack-item"><span class="stack-icon">🔀</span>OpenRouter</div>
+    <div class="stack-item"><span class="stack-icon">🎯</span>HubSpot</div>
+    <div class="stack-item"><span class="stack-icon">📊</span>Pipedrive</div>
+    <div class="stack-item"><span class="stack-icon">📋</span>Airtable</div>
+    <div class="stack-item"><span class="stack-icon">📝</span>Notion API</div>
+    <div class="stack-item"><span class="stack-icon">💬</span>Slack API</div>
+    <div class="stack-item"><span class="stack-icon">📱</span>Telegram Bot</div>
+    <div class="stack-item"><span class="stack-icon">📧</span>Brevo / Sendgrid</div>
+    <div class="stack-item"><span class="stack-icon">🔍</span>SerpAPI / Serper</div>
+    <div class="stack-item"><span class="stack-icon">📬</span>Hunter.io</div>
+    <div class="stack-item"><span class="stack-icon">🌐</span>Snov.io</div>
+    <div class="stack-item"><span class="stack-icon">🗄️</span>PostgreSQL</div>
+    <div class="stack-item"><span class="stack-icon">📊</span>Google Sheets</div>
+    <div class="stack-item"><span class="stack-icon">🕷️</span>Playwright</div>
+    <div class="stack-item"><span class="stack-icon">🔗</span>REST APIs</div>
+    <div class="stack-item"><span class="stack-icon">🪝</span>Webhooks</div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- CTA -->
+<section id="contact">
+  <div class="cta-section">
+    <div class="section-label" style="margin-bottom:16px">Ready to automate?</div>
+    <h2>Stop doing it by hand.</h2>
+    <p class="cta-sub">If your team is copy-pasting, manually following up, or running the same process every day — that's the workflow I build next.</p>
+    <a href="https://www.upwork.com/freelancers/~01a06e1e6d75ef7c44" class="btn-primary" target="_blank">View Upwork Profile</a>
+    <a href="mailto:mohamed.nabel500@gmail.com" class="btn-secondary">Email me</a>
+  </div>
+</section>
+
+<footer>
+  <span>Mohamed Nabil — AI Automation Engineer</span>
+  <span>Cairo, Egypt · Available worldwide</span>
+</footer>
+
+<script>
+function toggle(card) {
+  const body = card.querySelector('.project-body');
+  const icon = card.querySelector('.toggle-icon');
+  const isOpen = body.classList.contains('open');
+  document.querySelectorAll('.project-body.open').forEach(b => {
+    b.classList.remove('open');
+    b.closest('.project-card').querySelector('.toggle-icon').textContent = '+';
+  });
+  if (!isOpen) {
+    body.classList.add('open');
+    icon.textContent = '−';
+    setTimeout(() => card.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 50);
+  }
+}
+</script>
+</body>
+</html>
