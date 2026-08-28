@@ -327,6 +327,118 @@ nav {
     background: #14a800;
 }
 
+/* Projects */
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+}
+
+.project-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.9rem;
+    box-shadow: var(--shadow);
+    transition: all 0.25s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.project-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(36, 87, 245, 0.3);
+    box-shadow: 0 16px 32px rgba(36, 87, 245, 0.1);
+}
+
+.project-card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+}
+
+.project-card h3 {
+    font-size: 1.1rem;
+    color: var(--ink);
+}
+
+.project-tag {
+    flex-shrink: 0;
+    background: var(--blue-pale);
+    color: var(--blue);
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    padding: 0.3rem 0.65rem;
+    border-radius: 50px;
+    white-space: nowrap;
+}
+
+.project-card p {
+    color: var(--ink-soft);
+    font-size: 0.94rem;
+    margin-bottom: 1.25rem;
+    flex-grow: 1;
+}
+
+.project-impact {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border);
+    margin-bottom: 0.9rem;
+}
+
+.project-impact .value {
+    font-family: 'Manrope', sans-serif;
+    font-weight: 800;
+    font-size: 1.3rem;
+    color: var(--blue);
+}
+
+.project-impact .label {
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+    font-weight: 600;
+}
+
+.project-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+}
+
+.stack-chip {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--ink-soft);
+    background: var(--bg-soft);
+    border: 1px solid var(--border);
+    padding: 0.25rem 0.6rem;
+    border-radius: 6px;
+}
+
+.projects-footnote {
+    text-align: center;
+    margin-top: 2.5rem;
+    color: var(--ink-soft);
+    font-size: 0.95rem;
+}
+
+.projects-footnote strong { color: var(--ink); }
+
+.projects-footnote a {
+    color: var(--blue);
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.projects-footnote a:hover { text-decoration: underline; }
+
 /* Sections */
 .section {
     padding: 6rem 2rem;
@@ -546,7 +658,8 @@ footer .footer-links a:hover { color: var(--blue); }
     <div class="nav-content">
         <a href="#" class="nav-logo">Nabi<span>Services</span></a>
         <div class="nav-links">
-            <a href="https://www.upwork.com/freelancers/mohamednabil" target="_blank" rel="noopener noreferrer" class="nav-link">Upwork Profile</a>
+            <a href="#projects" class="nav-link">Projects</a>
+            <a href="https://www.upwork.com/freelancers/~01162477c225721c0b" target="_blank" rel="noopener noreferrer" class="nav-link">Upwork Profile</a>
             <a href="#contact" class="nav-cta">Get Started</a>
         </div>
     </div>
@@ -566,7 +679,7 @@ footer .footer-links a:hover { color: var(--blue); }
 
     <div class="cta-group">
         <a href="#contact" class="btn-primary">Get Free Automation Plan</a>
-        <a href="#case-study" class="btn-secondary">View Case Study</a>
+        <a href="#projects" class="btn-secondary">View Projects</a>
     </div>
 
     <div class="services">
@@ -600,9 +713,89 @@ footer .footer-links a:hover { color: var(--blue); }
 
 <!-- Credibility strip -->
 <div class="credibility">
-    <a href="https://www.upwork.com/freelancers/mohamednabil" target="_blank" rel="noopener noreferrer" class="upwork-chip">
+    <a href="https://www.upwork.com/freelancers/~01162477c225721c0b" target="_blank" rel="noopener noreferrer" class="upwork-chip">
         <span class="dot"></span> View my Upwork profile & reviews
     </a>
+</div>
+
+<!-- Projects Overview -->
+<div class="section" id="projects">
+    <div class="section-header">
+        <span class="section-eyebrow">Recent Work</span>
+        <h2>AI Automations Built & Shipped</h2>
+        <p>A few of the AI-powered systems I've built for clients, currently running in production</p>
+    </div>
+
+    <div class="projects-grid">
+        <div class="project-card">
+            <div class="project-card-top">
+                <h3>AI Outbound Voice Agent</h3>
+                <span class="project-tag">Client · Video Production</span>
+            </div>
+            <p>
+                A fully automated pipeline that dials prospects, holds a natural AI-voiced sales
+                conversation, checks live calendar availability mid-call, and books the meeting before
+                the call even ends — zero human involvement.
+            </p>
+            <div class="project-impact">
+                <span class="value">0</span>
+                <span class="label">human touches per booked call</span>
+            </div>
+        </div>
+
+        <div class="project-card">
+            <div class="project-card-top">
+                <h3>Slack-Based Outreach System</h3>
+                <span class="project-tag">Client · Biotechnology</span>
+            </div>
+            <p>
+                Connected the sales team's CRM to Slack so they search and message contacts without
+                touching the CRM UI. AI drafts personalized first-touch and follow-up messages ready to
+                approve, edit, or send — all without leaving Slack.
+            </p>
+            <div class="project-impact">
+                <span class="value">20-30</span>
+                <span class="label">hours saved per week</span>
+            </div>
+        </div>
+
+        <div class="project-card">
+            <div class="project-card-top">
+                <h3>Automated Lead Qualification</h3>
+                <span class="project-tag">Client · Packaging</span>
+            </div>
+            <p>
+                Sources companies automatically, profiles each one from public data (including reading
+                product images), then has AI score every lead for fit. Only strong matches get a
+                decision-maker lookup and land straight in the CRM.
+            </p>
+            <div class="project-impact">
+                <span class="value">20-30</span>
+                <span class="label">pre-qualified leads delivered daily</span>
+            </div>
+        </div>
+
+        <div class="project-card">
+            <div class="project-card-top">
+                <h3>AI Cold Email Agents</h3>
+                <span class="project-tag">Client · Contact Center</span>
+            </div>
+            <p>
+                In-house sales automation for a global contact center: AI agents source and engage
+                prospects automatically, keeping the sales team's pipeline stocked with warm replies
+                ready to close.
+            </p>
+            <div class="project-impact">
+                <span class="value">100%</span>
+                <span class="label">inbox placement on cold email</span>
+            </div>
+        </div>
+    </div>
+
+    <p class="projects-footnote">
+        <strong>21 completed projects · 5.0★ rating</strong> on Upwork —
+        <a href="https://www.upwork.com/freelancers/~01162477c225721c0b" target="_blank" rel="noopener noreferrer">see full history</a>
+    </p>
 </div>
 
 <!-- Lead Form -->
@@ -709,7 +902,7 @@ footer .footer-links a:hover { color: var(--blue); }
 
 <footer>
     <div class="footer-links">
-        <a href="https://www.upwork.com/freelancers/mohamednabil" target="_blank" rel="noopener noreferrer">Upwork Profile</a>
+        <a href="https://www.upwork.com/freelancers/~01162477c225721c0b" target="_blank" rel="noopener noreferrer">Upwork Profile</a>
         <a href="https://calendly.com/geeknabil7/30min" target="_blank" rel="noopener noreferrer">Book a Call</a>
         <a href="#contact">Contact</a>
     </div>
