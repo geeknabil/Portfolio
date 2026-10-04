@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Quote follow-up, handled | Mohamed Nabil</title>
-<meta name="description" content="Every enquiry logged. If a quote goes quiet, you get a reminder and a drafted chase email.">
+<title>Quote and proposal follow-up, handled | Mohamed Nabil</title>
+<meta name="description" content="Every enquiry logged. If a quote or proposal goes quiet, you get a reminder and a drafted chase email.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -46,6 +46,11 @@ h1{font-family:var(--head);font-weight:800;font-size:clamp(2.4rem,5.4vw,3.9rem);
 .draft p+p{margin-top:.6rem}
 .qc-foot{padding:.8rem 1.2rem;border-top:1px solid var(--line);font-size:.82rem;color:var(--faint)}
 
+/* Example tabs */
+.tabs{display:flex;gap:.4rem;padding:.7rem .8rem 0;border-bottom:1px solid var(--line)}
+.tabs button{font:inherit;font-size:.85rem;font-weight:600;color:var(--soft);background:none;border:0;border-bottom:2px solid transparent;padding:.4rem .7rem .6rem;cursor:pointer}
+.tabs button[aria-pressed="true"]{color:var(--ink);border-bottom-color:var(--blue)}
+
 /* Steps */
 .band{background:var(--white);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
 .section{padding:4.5rem 0}
@@ -84,25 +89,29 @@ footer{padding:2rem 0 3rem;color:var(--faint);font-size:.88rem;border-top:1px so
 <main>
 <section class="wrap hero">
   <div>
-    <h1>Stop losing quotes to silence.</h1>
-    <p class="lede">Every enquiry gets logged. When a quote goes out and the customer goes quiet, whoever sent it gets a reminder after a few days, with the chase email already drafted.</p>
+    <h1>Stop losing quotes and proposals to silence.</h1>
+    <p class="lede">Every enquiry gets logged. When a quote or proposal goes out and they go quiet, whoever sent it gets a reminder after a few days, with the chase email already drafted.</p>
     <a class="btn" href="https://calendly.com/nabilservices/30min">Book a call</a>
     <p class="alt">Or just reply to my email. A one-line answer is fine.</p>
     <!-- OFFER: keep this only if you really will do a few free builds. Delete the block otherwise. -->
     <p class="offer">I'm setting up a few of these for free this month, so I have real examples to show.</p>
   </div>
 
-  <aside class="quote-card" aria-label="Example of a quiet quote">
+  <aside class="quote-card" aria-label="Example of a quiet quote or proposal">
+    <div class="tabs">
+      <button type="button" data-k="quote" aria-pressed="true">A quote</button>
+      <button type="button" data-k="proposal" aria-pressed="false">A proposal</button>
+    </div>
     <div class="qc-head">
       <div>
-        <div class="qc-title">Quote for 40 rollers</div>
-        <div class="qc-sub">Sent 3 days ago</div>
+        <div class="qc-title" id="qc-title">Quote for 40 rollers</div>
+        <div class="qc-sub" id="qc-sub">Sent 3 days ago</div>
       </div>
       <span class="status">No reply</span>
     </div>
     <div class="qc-body">
       <div class="qc-note">Drafted for you, ready to send:</div>
-      <div class="draft">
+      <div class="draft" id="qc-draft">
         <p>Hi Paul,</p>
         <p>Just checking you received our quote for the 40 rollers. Happy to adjust the spec or timing if that helps.</p>
         <p>Kind regards,<br>Sam</p>
@@ -118,11 +127,11 @@ footer{padding:2rem 0 3rem;color:var(--faint);font-size:.88rem;border-top:1px so
     <ol class="steps">
       <li data-n="1">
         <h3>An enquiry comes in</h3>
-        <p>By email or web form. It is logged automatically, with what the customer needs, the quantity and the deadline pulled out for you.</p>
+        <p>By email or web form. It is logged automatically, with what they need, the size of the job and the deadline pulled out for you.</p>
       </li>
       <li data-n="2">
-        <h3>You send the quote, as you do today</h3>
-        <p>Nothing changes in how you quote. The system notes that it went out.</p>
+        <h3>You send the quote or proposal, as you do today</h3>
+        <p>Nothing changes in how you work. The system notes that it went out.</p>
       </li>
       <li data-n="3">
         <h3>A few days pass with no reply</h3>
@@ -143,7 +152,7 @@ footer{padding:2rem 0 3rem;color:var(--faint);font-size:.88rem;border-top:1px so
 <div class="band">
   <section class="wrap section final">
     <h2>Is this already sorted at your firm?</h2>
-    <p>If it is, no problem. If quotes sometimes go quiet and nobody chases them, a short call is the quickest way to see if I can help.</p>
+    <p>If it is, no problem. If quotes or proposals sometimes go quiet and nobody chases them, a short call is the quickest way to see if I can help.</p>
     <a class="btn" href="https://calendly.com/nabilservices/30min">Book a call</a>
   </section>
 </div>
@@ -153,5 +162,25 @@ footer{padding:2rem 0 3rem;color:var(--faint);font-size:.88rem;border-top:1px so
   <div class="wrap">&copy; 2026 Mohamed Nabil &middot; <a href="https://nabilservices.site">nabilservices.site</a></div>
 </footer>
 
+<script>
+(function(){
+  var D={
+    quote:{t:'Quote for 40 rollers',s:'Sent 3 days ago',d:['Hi Paul,','Just checking you received our quote for the 40 rollers. Happy to adjust the spec or timing if that helps.','Kind regards,<br>Sam']},
+    proposal:{t:'Website redesign proposal',s:'Sent 4 days ago',d:['Hi Priya,','Just checking you had a chance to look at the proposal for the website redesign. Happy to talk through scope or timing if that helps.','Best,<br>Sam']}
+  };
+  var btns=document.querySelectorAll('.tabs button');
+  function show(k){
+    if(!D[k])return;
+    document.getElementById('qc-title').textContent=D[k].t;
+    document.getElementById('qc-sub').textContent=D[k].s;
+    document.getElementById('qc-draft').innerHTML=D[k].d.map(function(x){return '<p>'+x+'</p>'}).join('');
+    btns.forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.k===k))});
+  }
+  btns.forEach(function(b){b.addEventListener('click',function(){show(b.dataset.k)})});
+  // Link with ?for=proposal to open on the proposal example
+  var q=new URLSearchParams(location.search).get('for');
+  if(q)show(q);
+})();
+</script>
 </body>
 </html>
